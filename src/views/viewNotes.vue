@@ -1,37 +1,24 @@
 <template>
   <div class="notes">
-    <div class="card has-background-success p-4">
-      <div class="field">
-        <div class="control">
-          <textarea
-            v-model="newNote"
-            ref="newNoteRef"
-            class="textarea"
-            placeholder="Add New Note Here..."
-          />
-        </div>
-      </div>
-
-      <div class="field is-grouped is-grouped-right">
-        <div class="control">
-          <button
-            :disabled="!newNote"
-            @click="addNote"
-            class="button is-link is-light"
-          >
-            Add New Note
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <AddEditNote
+      v-model="newNote"
+      ref="addEditNoteRef"
+      bg-color="success"
+      placeholder="Add New Note Here..."
+      label="Add Note"
+    >
+      <template v-slot:button>
+        <button
+          :disabled="!newNote"
+          @click="addNote"
+          class="button is-link is-light"
+        >
+          Add New Note
+        </button>
+      </template>
+    </AddEditNote>
     <!-- note -->
-    <Note
-      v-for="note in storeNotes.notes"
-      :key="note.id"
-      :note="note"
-      @deleteClicked="deleteNote"
-    />
+    <Note v-for="note in storeNotes.notes" :key="note.id" :note="note" />
     <!-- note -->
   </div>
 </template>
@@ -42,47 +29,20 @@
 import { ref } from "vue";
 import Note from "@/components/Notes/Note.vue";
 import { useStoreNotes } from "@/stores/storeNotes";
-
-const newNote = ref("");
-
-const newNoteRef = ref(null);
+import AddEditNote from "@/components/Notes/AddEditNote.vue";
 
 // storres
 const storeNotes = useStoreNotes();
 // storres
 
-// notes
-const notes = ref([
-  {
-    id: "id1",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis voluptatibus magnam qui voluptatem quae minima, adipisci, sequi perspiciatis placeat repellendus quas aperiam provident, aspernatur assumenda. At consectetur pariatur omnis nulla!",
-  },
-  {
-    id: "id2",
-    content: "Simple short content note. We will talk about leter.",
-  },
-]);
+const newNote = ref("");
+
+const addEditNoteRef = ref(null);
 
 const addNote = () => {
-  let currentDate = new Date().getTime();
-  let id = currentDate.toString();
-
-  let note = {
-    id: id,
-    content: newNote.value,
-  };
-  notes.value.unshift(note);
+  storeNotes.addNote(newNote.value);
 
   newNote.value = "";
-  newNoteRef.value.focus();
-};
-
-// Delete Note
-
-const deleteNote = (idToDelete) => {
-  notes.value = notes.value.filter((note) => {
-    return note.id !== idToDelete;
-  });
+  addEditNoteRef.value.focusTextarea();
 };
 </script>

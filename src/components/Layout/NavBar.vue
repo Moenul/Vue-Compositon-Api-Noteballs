@@ -31,10 +31,19 @@
         <div class="navbar-start"></div>
 
         <div class="navbar-end">
-          <RouterLink to="/" class="navbar-item" active-class="is-active"
+          <RouterLink
+            to="/"
+            @click="showMobileNav = false"
+            class="navbar-item"
+            active-class="is-active"
             >Notes</RouterLink
           >
-          <RouterLink to="/stats" class="navbar-item">Stats</RouterLink>
+          <RouterLink
+            to="/stats"
+            @click="showMobileNav = false"
+            class="navbar-item"
+            >Stats</RouterLink
+          >
         </div>
       </div>
     </div>

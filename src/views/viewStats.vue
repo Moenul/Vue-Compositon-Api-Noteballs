@@ -18,14 +18,28 @@
         </tr>
       </tbody>
     </table>
+
+    <input
+      type="text"
+      class="input"
+      placeholder="enter something"
+      v-autofocus
+      v-model="loveNoteballs"
+    />
   </div>
 </template>
 
 <script setup>
 // imports
+import { ref } from "vue";
 import { useStoreNotes } from "@/stores/storeNotes";
+import { vAutofocus } from "@/directives/vAutofocus";
+import { useWatchCharacters } from "@/use/useWatchCharacters";
 
 const storeNotes = useStoreNotes();
 
-console.log(storeNotes.totalNotesCount);
+// Watcher
+const loveNoteballs = ref(null);
+
+useWatchCharacters(loveNoteballs, 50);
 </script>

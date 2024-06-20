@@ -17,8 +17,21 @@
         </button>
       </template>
     </AddEditNote>
+    <!-- Loading -->
+    <button
+      v-if="!storeNotes.notedLoaded"
+      class="is-loading mt-6 button is-large is-ghost is-fullwidth"
+    ></button>
     <!-- note -->
-    <Note v-for="note in storeNotes.notes" :key="note.id" :note="note" />
+    <template v-else>
+      <Note v-for="note in storeNotes.notes" :key="note.id" :note="note" />
+      <div
+        v-if="!storeNotes.notes.length"
+        class="is-size-5 has-text-centered has-text-grey-light is-family-monospace py-6"
+      >
+        No notes add yet ...
+      </div>
+    </template>
     <!-- note -->
   </div>
 </template>

@@ -39,7 +39,7 @@
 <script setup>
 // imports
 
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Note from "@/components/Notes/Note.vue";
 import { useStoreNotes } from "@/stores/storeNotes";
 import AddEditNote from "@/components/Notes/AddEditNote.vue";
@@ -48,6 +48,11 @@ import { useWatchCharacters } from "@/use/useWatchCharacters";
 // storres
 const storeNotes = useStoreNotes();
 // storres
+
+// mounted
+onMounted(() => {
+  storeNotes.getNotes();
+});
 
 const newNote = ref("");
 

@@ -9,16 +9,16 @@
 // imports
 
 import NavBar from "@/components/Layout/NavBar.vue";
-import { useStoreNotes } from "@/stores/storeNotes";
+import { useStoreAuth } from "@/stores/storeAuth";
 import { onMounted } from "vue";
 
 // storres
-const storeNotes = useStoreNotes();
+const storeAuth = useStoreAuth();
 // storres
 
 // mounted
 onMounted(() => {
-  storeNotes.getNotes();
+  storeAuth.init();
 });
 </script>
 
